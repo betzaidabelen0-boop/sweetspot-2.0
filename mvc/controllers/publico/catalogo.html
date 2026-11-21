@@ -1,0 +1,79 @@
+$def with (datos)
+
+<div class="contenedor pagina">
+
+  <nav class="migas" aria-label="Ruta de navegación">
+    <a href="/">Inicio</a> / Productos
+  </nav>
+
+  <div class="pagina__encabezado">
+    <h1>Catálogo de producto</h1>
+    <p class="subtitulo">Elija sus favoritos</p>
+  </div>
+
+  <form class="catalogo__filtros" method="get" action="/productos">
+    $if datos.categoria:
+      <input type="hidden" name="categoria" value="$datos.categoria">
+    <div class="campo">
+      <label for="q">¿Qué buscaba?</label>
+      <div class="buscador">
+        <input type="search" id="q" name="q" value="$datos.busqueda" placeholder="Buscar dulces/postres">
+      </div>
+    </div>
+    <div class="campo">
+      <label for="orden">Ordenar por</label>
+      <select id="orden" name="orden" onchange="this.form.submit()">
+        $for valor, texto in ordenes:
+          <option value="$valor"$(' selected' if datos.orden == valor else '')>$texto</option>
+      </select>
+    </div>
+    <button class="solo-lectores" type="submit">Buscar</button>
+  </form>
+
+  <div class="catalogo">
+
+    <aside class="categorias" aria-label="Categorías">
+      <h2 class="categorias__titulo">Categorías</h2>
+      <a class="categorias__enlace$(' activo' if not datos.categoria else '')" href="/productos">Todos los productos &middot; $datos.total_general</a>
+      $for c in datos.categorias:
+        <a class="categorias__enlace$(' activo' if datos.categoria == c.clave else '')" href="/productos?categoria=$c.clave">$c.nombre &middot; $c.cantidad</a>
+    </aside>
+
+    <section aria-label="Productos">
+      $if datos.productos:
+        <div class="catalogo__lista">
+          $for p in datos.productos:
+            $ precio = '%.0f' % p.precio if p.precio == int(p.precio) else '%.2f' % p.precio
+            <a class="producto" href="/productos/$p.id">
+              <img class="producto__imagen" src="$p.imagen" alt="$p.nombre" loading="lazy">
+              <div class="producto__meta">$p.categoria &middot; Mínimo $p.minimo piezas</div>
+              <h3 class="producto__nombre">$p.nombre</h3>
+              <div class="producto__pie">
+                <span class="precio--vino">$$$precio MXN / pieza</span>
+                <span class="enlace-flecha" aria-hidden="true">&#8599;</span>
+              </div>
+            </a>
+        </div>
+
+        $if datos.total_paginas > 1:
+          <nav class="paginacion" aria-label="Paginación">
+            $if datos.pagina > 1:
+              <a class="btn btn--secundario" href="/productos?$(prefijo)pagina=$(datos.pagina - 1)">&larr; Anterior</a>
+            $else:
+              <span class="btn btn--secundario btn--deshabilitado">&larr; Anterior</span>
+            $for n in range(1, datos.total_paginas + 1):
+              <a class="paginacion__num$(' activo' if n == datos.pagina else '')" href="/productos?$(prefijo)pagina=$n"$:(' aria-current="page"' if n == datos.pagina else '')>$n</a>
+            $if datos.pagina < datos.total_paginas:
+              <a class="btn btn--secundario" href="/productos?$(prefijo)pagina=$(datos.pagina + 1)">Siguiente &rarr;</a>
+            $else:
+              <span class="btn btn--secundario btn--deshabilitado">Siguiente &rarr;</span>
+          </nav>
+      $else:
+        <div class="vacio">
+          <p>No encontramos productos con esa búsqueda.</p>
+          <a class="btn btn--secundario" href="/productos">Ver todos los productos</a>
+        </div>
+    </section>
+
+  </div>
+</div>
