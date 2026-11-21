@@ -1,0 +1,234 @@
+/* ==========================================================================
+   Variables (colores, fuentes, radios), reset, tipografía, layout y utilidades.
+   Cargar PRIMERO en toda página. Las variables :root viven solo aquí.
+   Convención: .bloque | .bloque__elemento | .bloque--variante | .activo
+   ========================================================================== */
+
+/* 1. TOKENS ============================================================== */
+:root {
+  /* Paleta de la guía visual */
+  --vino: #73324f;
+  --vino-oscuro: #5a2640;
+  --crema: #fff9f5;
+  --carbon: #2f2928;
+  --gris: #786f6b;
+  --rosa: #e9a49c;
+
+  /* Derivados de la paleta */
+  --blanco: #ffffff;
+  --rosa-borde: #f1c4be;   /* borde de inputs y calendario */
+  --rosa-linea: #f8e4df;   /* divisores finos y bordes de tarjetas */
+  --rosa-fondo: #fdf3ee;   /* fechas completas/cerradas, relleno suave */
+  --exito: #3f7a54;
+  --exito-fondo: #e4f1e8;
+  --error: #a63a3a;
+  --error-fondo: #f8e1e1;
+  --aviso: #8a6420;
+  --aviso-fondo: #f7ecd3;
+
+  /* Tipografía */
+  --fuente-titulos: "Cormorant Garamond", Georgia, serif;
+  --fuente-texto: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Espaciado */
+  --esp-1: 0.25rem;
+  --esp-2: 0.5rem;
+  --esp-3: 0.75rem;
+  --esp-4: 1rem;
+  --esp-5: 1.5rem;
+  --esp-6: 2rem;
+  --esp-7: 3rem;
+  --esp-8: 4.5rem;
+
+  /* Formas: en las interfaces los botones e inputs son poco redondeados */
+  --radio-sm: 6px;
+  --radio-md: 10px;
+  --radio-lg: 14px;
+  --radio-pill: 999px;
+
+  --ancho-max: 1120px;
+  --alto-navbar: 72px;
+  --ancho-lateral: 240px;
+}
+
+/* 2. RESET Y BASE ======================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fuente-texto);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--carbon);
+  background: var(--blanco);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--vino);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--vino);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* 3. TIPOGRAFÍA ========================================================== */
+/* Los títulos van en carbón, Cormorant en peso regular (como en Figma) */
+h1,
+h2,
+h3,
+h4 {
+  margin: 0 0 var(--esp-3);
+  font-family: var(--fuente-titulos);
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--carbon);
+}
+
+h1 { font-size: clamp(2.2rem, 4.5vw, 3rem); }
+h2 { font-size: clamp(1.7rem, 3vw, 2.1rem); }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.25rem; }
+
+.titulo-hero {
+  font-size: clamp(2.8rem, 6vw, 4.4rem);
+  line-height: 1.02;
+}
+
+p {
+  margin: 0 0 var(--esp-4);
+  max-width: 62ch;
+}
+
+.subtitulo,
+.texto-suave {
+  color: var(--gris);
+}
+
+/* Etiqueta pequeña en mayúsculas sobre un título (DULCE, COTIZACIÓN, ...) */
+.etiqueta {
+  display: block;
+  margin-bottom: var(--esp-2);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--vino);
+}
+
+.precio {
+  font-family: var(--fuente-titulos);
+  font-size: 2.1rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--carbon);
+}
+.precio--vino {
+  font-family: var(--fuente-texto);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--vino);
+}
+
+/* 4. LAYOUT ============================================================== */
+.contenedor {
+  width: 100%;
+  max-width: var(--ancho-max);
+  margin: 0 auto;
+  padding: 0 var(--esp-5);
+}
+
+.pagina {
+  padding: var(--esp-5) 0 var(--esp-8);
+}
+.pagina__encabezado {
+  margin-bottom: var(--esp-5);
+}
+
+.grid {
+  display: grid;
+  gap: var(--esp-5);
+}
+.grid--2 { grid-template-columns: repeat(2, 1fr); }
+.grid--3 { grid-template-columns: repeat(3, 1fr); }
+
+.fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--esp-3);
+}
+.fila--entre { justify-content: space-between; }
+
+.divisor {
+  height: 1px;
+  margin: var(--esp-4) 0;
+  background: var(--rosa-linea);
+  border: 0;
+}
+
+/* UTILIDADES ========================================================= */
+.centrado { text-align: center; }
+.oculto { display: none !important; }
+.mt-4 { margin-top: var(--esp-4); }
+.mt-6 { margin-top: var(--esp-6); }
+.mb-4 { margin-bottom: var(--esp-4); }
+.mb-6 { margin-bottom: var(--esp-6); }
+.solo-lectores {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* RESPONSIVE ============================================================ */
+@media (max-width: 992px) {
+  .grid--3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .grid--2,
+  .grid--3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .contenedor { padding: 0 var(--esp-4); }
+}

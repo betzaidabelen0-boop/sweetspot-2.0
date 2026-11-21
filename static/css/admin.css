@@ -1,0 +1,213 @@
+/* ==========================================================================
+   SWEETSPOT — ADMIN
+   Menú lateral, barra superior, tablas, columnas del panel y login del administrador.
+   Cargar TERCERO en las páginas del admin (después de base.css y componentes.css).
+   Convención: .bloque | .bloque__elemento | .bloque--variante | .activo
+   ========================================================================== */
+
+/* 17. PANEL ADMINISTRATIVO =============================================== */
+.admin {
+  display: grid;
+  grid-template-columns: var(--ancho-lateral) 1fr;
+  min-height: 100vh;
+}
+.admin__lateral {
+  padding: var(--esp-5) var(--esp-4);
+  background: var(--blanco);
+  border-right: 1px solid var(--rosa-linea);
+}
+.admin__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+  margin-bottom: var(--esp-5);
+  font-family: var(--fuente-titulos);
+  font-size: 1.7rem;
+  color: var(--vino);
+}
+.admin__seccion {
+  margin-bottom: var(--esp-3);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--vino);
+}
+.admin__enlace {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3);
+  padding: 0.6rem var(--esp-3);
+  margin-bottom: var(--esp-1);
+  font-size: 0.8rem;
+  color: var(--gris);
+  border-radius: var(--radio-sm);
+}
+.admin__enlace:hover {
+  color: var(--vino);
+  text-decoration: none;
+}
+.admin__enlace.activo {
+  font-weight: 600;
+  color: var(--blanco);
+  background: var(--vino);
+}
+
+.admin__principal {
+  min-width: 0;
+  background: var(--crema);
+}
+.admin__barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--esp-3) var(--esp-6);
+  font-size: 0.75rem;
+  color: var(--gris);
+  background: var(--blanco);
+}
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--blanco);
+  background: var(--vino);
+  border-radius: 50%;
+}
+.admin__contenido {
+  padding: var(--esp-6);
+}
+.admin__titulo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--esp-3);
+  margin-bottom: var(--esp-5);
+}
+.admin__titulo h1 {
+  margin: 0;
+  font-size: 2.6rem;
+}
+.admin__acciones {
+  display: flex;
+  gap: var(--esp-2);
+}
+
+/* Dos columnas: formulario principal + panel lateral (foto, precio, día) */
+.admin__columnas {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: var(--esp-5);
+  align-items: start;
+}
+.admin__columnas .tarjeta {
+  margin-bottom: var(--esp-5);
+}
+
+.tabla-contenedor {
+  overflow-x: auto;
+  background: var(--crema);
+}
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+.tabla th {
+  padding: var(--esp-3) var(--esp-2);
+  font-weight: 400;
+  text-align: left;
+  color: var(--gris);
+  white-space: nowrap;
+}
+.tabla td {
+  padding: var(--esp-4) var(--esp-2);
+  border-top: 1px solid var(--rosa-linea);
+  vertical-align: middle;
+}
+.tabla tr.activo td {
+  color: var(--gris);
+}
+
+/* Filas "Etiqueta ........ valor" del panel de día y del precio */
+.datos-fila {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--esp-2) 0;
+  font-size: 0.8rem;
+}
+.datos-fila--total {
+  font-weight: 600;
+}
+.datos-fila--total strong {
+  font-size: 1.5rem;
+  color: var(--vino);
+}
+.evento {
+  padding: var(--esp-3) 0;
+  font-size: 0.75rem;
+  color: var(--gris);
+}
+.evento strong {
+  display: block;
+  margin: var(--esp-2) 0 var(--esp-1);
+  font-size: 0.85rem;
+  color: var(--carbon);
+}
+
+.foto-admin {
+  width: 100%;
+  margin-bottom: var(--esp-4);
+  border-radius: var(--radio-md);
+  object-fit: contain;
+}
+
+/* LOGIN ============================================================== */
+.login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--esp-5);
+  background: var(--crema);
+}
+.login__caja {
+  width: 100%;
+  max-width: 400px;
+  padding: var(--esp-6);
+  background: var(--blanco);
+  border: 1px solid var(--rosa-linea);
+  border-radius: var(--radio-lg);
+}
+.login__caja h1 {
+  text-align: center;
+}
+
+/* RESPONSIVE ============================================================ */
+@media (max-width: 992px) {
+  .admin__columnas {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin { grid-template-columns: 1fr; }
+  .admin__lateral {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--esp-2);
+    padding: var(--esp-3);
+    border-right: 0;
+    border-bottom: 1px solid var(--rosa-linea);
+  }
+  .admin__logo { margin: 0 var(--esp-3) 0 0; }
+  .admin__seccion { display: none; }
+  .admin__contenido { padding: var(--esp-4); }
+  .admin__barra { padding: var(--esp-3) var(--esp-4); }
+}

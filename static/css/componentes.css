@@ -1,0 +1,484 @@
+/* ==========================================================================
+   SWEETSPOT — COMPONENTES
+   Botones, formularios, tarjetas, insignias, alertas, modal, calendario, cantidad, paginación.
+   Cargar SEGUNDO (después de base.css). Lo usan la parte pública y el admin.
+   Convención: .bloque | .bloque__elemento | .bloque--variante | .activo
+   ========================================================================== */
+
+/* 5. BOTONES ============================================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--esp-2);
+  padding: 0.6rem 1.1rem;
+  font: 600 0.8125rem var(--fuente-texto);
+  color: var(--blanco);
+  background: var(--vino);
+  border: 1px solid var(--vino);
+  border-radius: var(--radio-sm);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.btn:hover {
+  background: var(--vino-oscuro);
+  border-color: var(--vino-oscuro);
+  text-decoration: none;
+}
+
+/* Botón de borde vino (Explorar paquetes, Cancelar, Editar, Tu evento...) */
+.btn--secundario {
+  color: var(--vino);
+  background: var(--blanco);
+}
+.btn--secundario:hover {
+  color: var(--vino);
+  background: var(--rosa-fondo);
+  border-color: var(--vino);
+}
+
+.btn--grande {
+  padding: 0.8rem 1.4rem;
+  font-size: 0.875rem;
+}
+.btn--bloque {
+  width: 100%;
+}
+.btn--peligro {
+  color: var(--vino);
+  background: var(--blanco);
+}
+.btn--peligro:hover {
+  color: var(--blanco);
+  background: var(--error);
+  border-color: var(--error);
+}
+.btn:disabled,
+.btn--deshabilitado {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Enlace con flecha (Editar →, Revisar solicitud →) */
+.enlace-flecha {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--vino);
+}
+
+/* 8. MIGAS, PAGINACIÓN Y CANTIDAD ======================================== */
+.migas {
+  margin-bottom: var(--esp-4);
+  font-size: 0.75rem;
+  color: var(--gris);
+}
+.migas a {
+  color: var(--gris);
+}
+
+.paginacion {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+  margin-top: var(--esp-5);
+}
+.paginacion__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  font-size: 0.75rem;
+  color: var(--gris);
+  background: var(--rosa-fondo);
+  border-radius: 50%;
+}
+.paginacion__num.activo {
+  color: var(--blanco);
+  background: var(--vino);
+}
+
+/* Selector de cantidad: - 80 + */
+.cantidad {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--esp-4);
+}
+.cantidad button {
+  padding: 0 var(--esp-1);
+  font-size: 1rem;
+  color: var(--carbon);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.cantidad__valor {
+  min-width: 28px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+/* Variante de la ficha de producto: caja ancha con borde rosa */
+.cantidad--caja {
+  display: flex;
+  justify-content: flex-start;
+  gap: var(--esp-5);
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--blanco);
+  border: 1px solid var(--rosa-borde);
+  border-radius: var(--radio-sm);
+}
+
+/* 9. FORMULARIOS ========================================================= */
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-2);
+  margin-bottom: var(--esp-4);
+}
+.campo label,
+.campo__etiqueta {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--carbon);
+}
+.campo .obligatorio {
+  color: var(--error);
+}
+.campo__ayuda {
+  font-size: 0.78rem;
+  color: var(--gris);
+}
+.campo__error {
+  font-size: 0.78rem;
+  color: var(--error);
+}
+
+.formulario__fila {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--esp-4);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+input[type="search"],
+select,
+textarea {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  font: 400 0.875rem var(--fuente-texto);
+  color: var(--carbon);
+  background: var(--blanco);
+  border: 1px solid var(--rosa-borde);
+  border-radius: var(--radio-sm);
+  transition: border-color 0.2s;
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--gris);
+}
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--vino);
+}
+textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+select {
+  padding-right: 2.2rem;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%2373324F' stroke-width='1.5'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+}
+.campo--error input,
+.campo--error select,
+.campo--error textarea {
+  border-color: var(--error);
+}
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--vino);
+}
+
+/* Buscador con lupa */
+.buscador {
+  position: relative;
+}
+.buscador input {
+  padding-left: 2.2rem;
+}
+.buscador::before {
+  content: "\2315";
+  position: absolute;
+  top: 50%;
+  left: 0.9rem;
+  transform: translateY(-50%);
+  color: var(--gris);
+}
+
+/* Barra de acciones al pie de un formulario (← Complementos | Revisar →) */
+.acciones-pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-3);
+  margin-top: var(--esp-5);
+}
+
+/* 10. TARJETAS Y LISTAS CON CHECK ======================================== */
+.tarjeta {
+  padding: var(--esp-5);
+  margin-bottom: var(--esp-5);
+  background: var(--blanco);
+  border: 1px solid var(--rosa-linea);
+  border-radius: var(--radio-lg);
+}
+.tarjeta__titulo {
+  margin-bottom: var(--esp-4);
+  font-size: 1.6rem;
+}
+
+.lista-check li {
+  position: relative;
+  padding: 0.3rem 0 0.3rem 1.6rem;
+  font-size: 0.85rem;
+  color: var(--gris);
+}
+.lista-check li::before {
+  content: "\2713";
+  position: absolute;
+  left: 0;
+  font-weight: 600;
+  color: var(--vino);
+}
+.lista-check--oscura li {
+  color: var(--carbon);
+}
+
+/* 14. CALENDARIO (público y admin) ======================================= */
+.calendario {
+  padding: var(--esp-5);
+  background: var(--blanco);
+  border: 1px solid var(--rosa-linea);
+  border-radius: var(--radio-lg);
+}
+.calendario__cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--esp-4);
+}
+.calendario__titulo {
+  margin: 0;
+  font-size: 1.7rem;
+  text-transform: capitalize;
+}
+.calendario__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3);
+  font-size: 0.8rem;
+  color: var(--vino);
+}
+.calendario__nav button {
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.calendario__rejilla {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+.calendario__semana {
+  font-size: 0.7rem;
+  color: var(--gris);
+}
+.calendario__dia {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 62px;
+  padding: 8px 10px;
+  font: 400 0.75rem var(--fuente-texto);
+  color: var(--carbon);
+  text-align: left;
+  background: var(--blanco);
+  border: 1px solid var(--rosa-borde);
+  border-radius: var(--radio-sm);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.calendario__dia:hover {
+  background: var(--rosa-fondo);
+}
+/* Texto pequeño bajo el número: Completo, Cerrado, 1 lugar, Valeria · Pendiente */
+.calendario__nota {
+  margin-top: 4px;
+  font-size: 0.58rem;
+  line-height: 1.2;
+  color: var(--gris);
+}
+.calendario__dia--vacio {
+  cursor: default;
+  pointer-events: none;
+}
+/* Completo / cerrado / pasado: no se puede elegir */
+.calendario__dia--completo,
+.calendario__dia--cerrado,
+.calendario__dia--pasado {
+  background: var(--rosa-fondo);
+  border-color: var(--rosa-linea);
+  cursor: not-allowed;
+}
+.calendario__dia--pasado {
+  color: var(--gris);
+}
+.calendario__dia--seleccionado,
+.calendario__dia--seleccionado:hover {
+  color: var(--blanco);
+  background: var(--vino);
+  border-color: var(--vino);
+}
+.calendario__dia--seleccionado .calendario__nota {
+  color: var(--blanco);
+}
+/* En el admin los días con solicitud muestran su nota en vino */
+.calendario__dia--solicitud .calendario__nota {
+  color: var(--vino);
+}
+
+.calendario__leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-4);
+  margin-top: var(--esp-4);
+  font-size: 0.68rem;
+  color: var(--gris);
+}
+.leyenda__punto {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 5px;
+  border-radius: 50%;
+  border: 1px solid var(--vino);
+}
+.leyenda__punto--seleccionado { background: var(--vino); }
+.leyenda__punto--disponible { background: var(--blanco); }
+.leyenda__punto--no-disponible {
+  background: var(--rosa-fondo);
+  border-color: var(--gris);
+  border-radius: 2px;
+}
+
+/* 16. INSIGNIAS, ALERTAS Y VACÍOS ======================================== */
+/* Pastilla vino: "✓ Seleccionado", "Confirmado · 11:00–15:00 h" */
+.insignia {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0.15rem 0.7rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--blanco);
+  background: var(--vino);
+  border-radius: var(--radio-pill);
+}
+/* Pastilla suave: "Pendiente · Sin reserva" */
+.insignia--suave {
+  color: var(--vino);
+  background: var(--rosa-fondo);
+  border: 1px solid var(--rosa-borde);
+}
+.insignia--exito {
+  color: var(--exito);
+  background: var(--exito-fondo);
+}
+.insignia--error {
+  color: var(--error);
+  background: var(--error-fondo);
+}
+.insignia--aviso {
+  color: var(--aviso);
+  background: var(--aviso-fondo);
+}
+/* Estados de reservación (usar con .insignia) */
+.estado--pendiente { color: var(--vino); background: var(--rosa-fondo); border: 1px solid var(--rosa-borde); }
+.estado--confirmada { color: var(--blanco); background: var(--vino); }
+.estado--rechazada { color: var(--error); background: var(--error-fondo); }
+
+.alerta {
+  padding: var(--esp-3) var(--esp-4);
+  margin-bottom: var(--esp-4);
+  font-size: 0.85rem;
+  border-left: 4px solid;
+  border-radius: var(--radio-sm);
+}
+.alerta--exito { color: var(--exito); background: var(--exito-fondo); border-color: var(--exito); }
+.alerta--error { color: var(--error); background: var(--error-fondo); border-color: var(--error); }
+.alerta--aviso { color: var(--aviso); background: var(--aviso-fondo); border-color: var(--aviso); }
+
+.vacio {
+  padding: var(--esp-7) var(--esp-4);
+  text-align: center;
+  color: var(--gris);
+}
+
+/* MODAL ============================================================== */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--esp-4);
+  background: rgba(47, 41, 40, 0.5);
+}
+.modal.abierto {
+  display: flex;
+}
+.modal__caja {
+  width: 100%;
+  max-width: 420px;
+  padding: var(--esp-5);
+  background: var(--blanco);
+  border-radius: var(--radio-lg);
+}
+.modal__acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--esp-2);
+  margin-top: var(--esp-5);
+}
+
+/* RESPONSIVE ============================================================ */
+@media (max-width: 768px) {
+  .formulario__fila {
+    grid-template-columns: 1fr;
+  }
+
+  .acciones-pie { flex-direction: column-reverse; align-items: stretch; }
+}
+
+@media (max-width: 480px) {
+  .calendario { padding: var(--esp-3); }
+  .calendario__rejilla { gap: 3px; }
+  .calendario__dia { min-height: 48px; padding: 4px 6px; }
+  .calendario__nota { display: none; }
+}
