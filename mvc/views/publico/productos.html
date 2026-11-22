@@ -1,0 +1,82 @@
+$def with (datos)
+$var titulo: Catálogo de producto
+$var activo: productos
+$var script: productos.js
+
+<section class="pagina">
+    <div class="contenedor">
+
+        <nav class="migas"><a href="/">Inicio</a> / Productos</nav>
+
+        <header class="pagina__encabezado">
+            <h1>Catálogo de producto</h1>
+            <p class="subtitulo">Elija sus favoritos</p>
+        </header>
+
+        <form class="catalogo__filtros" id="form-filtros" method="get" action="/productos">
+            <div class="campo">
+                <label for="q">¿Qué buscaba?</label>
+                <div class="buscador">
+                    <input type="search" id="q" name="q" value="$datos.texto" placeholder="Buscar dulces/postres">
+                </div>
+            </div>
+            <div class="campo">
+                <label for="orden">Ordenar por</label>
+                <select id="orden" name="orden">
+                    <option value="populares" $('selected' if datos.orden == 'populares' else '')>Más populares</option>
+                    <option value="nombre" $('selected' if datos.orden == 'nombre' else '')>Nombre (A-Z)</option>
+                    <option value="precio_menor" $('selected' if datos.orden == 'precio_menor' else '')>Precio: menor a mayor</option>
+                    <option value="precio_mayor" $('selected' if datos.orden == 'precio_mayor' else '')>Precio: mayor a menor</option>
+                </select>
+            </div>
+            $if datos.categoria:
+                <input type="hidden" name="categoria" value="$datos.categoria">
+            <button class="solo-lectores" type="submit">Buscar</button>
+        </form>
+
+        <div class="catalogo">
+
+            <aside class="categorias">
+                <h2 class="categorias__titulo">Categorías</h2>
+                <a class="categorias__enlace $('activo' if not datos.categoria else '')" href="$datos.url_todos">Todos los productos · $datos.total_general</a>
+                $for categoria in datos.categorias:
+                    <a class="categorias__enlace $('activo' if datos.categoria == categoria['nombre'] else '')" href="$datos.url_categorias[categoria['nombre']]">$categoria['nombre'] · $categoria['total']</a>
+            </aside>
+
+            <div>
+                $if datos.productos:
+                    <div class="catalogo__lista">
+                        $for producto in datos.productos:
+                            <a class="producto" href="/producto/$producto['id_producto']">
+                                $if producto.get('imagen'):
+                                    <img class="producto__imagen" src="$producto['imagen']" alt="$producto['nombre']">
+                                $else:
+                                    <div class="producto__imagen"></div>
+                                <p class="producto__meta">$producto['meta']</p>
+                                <h3 class="producto__nombre">$producto['nombre']</h3>
+                                <div class="producto__pie">
+                                    <span class="precio precio--vino">$producto['precio_texto'] MXN / pieza</span>
+                                    <span aria-hidden="true">&#8599;</span>
+                                </div>
+                            </a>
+                    </div>
+
+                    $if len(datos.paginas) > 1:
+                        <nav class="paginacion" aria-label="Paginación">
+                            $if datos.url_anterior:
+                                <a class="btn btn--secundario" href="$datos.url_anterior">&larr; Anterior</a>
+                            $for pagina in datos.paginas:
+                                <a class="paginacion__num $('activo' if pagina['activo'] else '')" href="$pagina['url']">$pagina['num']</a>
+                            $if datos.url_siguiente:
+                                <a class="btn btn--secundario" href="$datos.url_siguiente">Siguiente &rarr;</a>
+                        </nav>
+                $else:
+                    <div class="vacio">
+                        <p>No se encontraron productos con esa búsqueda.</p>
+                        <a class="btn btn--secundario" href="/productos">Ver todos los productos</a>
+                    </div>
+            </div>
+
+        </div>
+    </div>
+</section>

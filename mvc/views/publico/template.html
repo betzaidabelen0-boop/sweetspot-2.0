@@ -1,0 +1,57 @@
+$def with (content)
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>$content.get('titulo', 'SweetsPot') | SweetsPot</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap">
+        <link rel="stylesheet" href="/static/css/base.css">
+        <link rel="stylesheet" href="/static/css/componentes.css">
+        <link rel="stylesheet" href="/static/css/publico.css">
+    </head>
+    <body>
+        <div class="franja"></div>
+
+        <header class="navbar">
+            <div class="contenedor navbar__interior">
+                <a class="navbar__logo" href="/">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 21v-9"/><path d="M12 12C8 12 6 9 6 5c4 0 6 3 6 7z"/><path d="M12 12c4 0 6-3 6-7-4 0-6 3-6 7z"/></svg>
+                    SweetsPot
+                </a>
+
+                <button class="navbar__toggle" id="navbar-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">&#9776;</button>
+
+                <nav class="navbar__menu" id="navbar-menu">
+                    <a class="navbar__enlace $('activo' if content.get('activo') == 'inicio' else '')" href="/">Inicio</a>
+                    <a class="navbar__enlace $('activo' if content.get('activo') == 'productos' else '')" href="/productos">Productos</a>
+                    <a class="navbar__enlace $('activo' if content.get('activo') == 'paquetes' else '')" href="/paquetes">Servicios y paquetes</a>
+                    <a class="navbar__enlace $('activo' if content.get('activo') == 'agendamiento' else '')" href="/agendamiento">Agendamiento</a>
+                    <a class="navbar__enlace $('activo' if content.get('activo') == 'carrito' else '')" href="/carrito">Carrito</a>
+                </nav>
+
+                <div class="navbar__acciones" id="navbar-acciones">
+                    <a class="navbar__enlace" href="/cuenta">Mi cuenta</a>
+                    <a class="btn" href="/agendamiento">Personalizar mi mesa</a>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            $:content
+        </main>
+
+        <footer class="footer">
+            <div class="contenedor fila fila--entre">
+                <span>SweetsPot · Mesas de dulces para tus eventos</span>
+                <span>Catálogo, paquetes y agendamiento en un solo lugar</span>
+            </div>
+        </footer>
+
+        <script src="/static/js/navbar.js"></script>
+        $if content.get('script'):
+            <script src="/static/js/$content.script"></script>
+    </body>
+</html>
