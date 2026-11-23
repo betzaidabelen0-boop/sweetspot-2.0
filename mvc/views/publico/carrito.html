@@ -1,0 +1,79 @@
+$def with (datos)
+$var titulo: Carrito
+$var activo: carrito
+
+<section class="pagina">
+    <div class="contenedor">
+
+        <header class="pagina__encabezado">
+            <h1>Carrito</h1>
+        </header>
+
+        $if datos.productos:
+            <div class="carrito">
+
+                <div>
+                    $for producto in datos.productos:
+                        <article class="carrito__item carrito__item--seleccionado">
+                            $if producto.get('imagen'):
+                                <img src="$producto['imagen']" alt="$producto['nombre']">
+                            $else:
+                                <div></div>
+
+                            <div>
+                                <span class="insignia">&#10003; Seleccionado</span>
+                                <h3 class="carrito__nombre">$producto['nombre']</h3>
+                                <p class="carrito__detalle">$$$producto['precio_texto'] MXN / pieza · Mínimo $producto['minimo']</p>
+                            </div>
+
+                            <form class="carrito__derecha" method="post" action="/carrito">
+                                <input type="hidden" name="id_producto" value="$producto['id_producto']">
+                                <div class="cantidad">
+                                    <button type="submit" name="accion" value="restar">&minus;</button>
+                                    <span class="cantidad__valor">$producto['cantidad']</span>
+                                    <button type="submit" name="accion" value="sumar">+</button>
+                                </div>
+                                <span class="carrito__importe">$$$producto['subtotal_texto']</span>
+                                <button class="carrito__quitar" type="submit" name="accion" value="quitar">Quitar</button>
+                            </form>
+                        </article>
+                </div>
+
+                <aside class="cotizacion">
+                    <p class="sobretitulo">Cotización</p>
+                    <h2 class="cotizacion__titulo">$datos.evento['nombre']</h2>
+                    <p class="cotizacion__datos">
+                        $datos.evento['invitados'] invitados · Estilo $datos.evento['estilo']<br>
+                        $datos.evento['fecha'] · $datos.evento['ciudad']
+                    </p>
+                    <hr>
+                    <div class="cotizacion__linea">
+                        <span>$datos.total_piezas productos</span>
+                        <span>$$$datos.subtotal_texto</span>
+                    </div>
+                    <div class="cotizacion__linea">
+                        <span>Montaje esencial</span>
+                        <span>$$$datos.montaje_texto</span>
+                    </div>
+                    <hr>
+                    <div class="cotizacion__total">
+                        <span>Total estimado</span>
+                        <strong>$$$datos.total_texto</strong>
+                    </div>
+                </aside>
+
+            </div>
+
+            <div class="acciones-pie">
+                <a class="btn btn--secundario" href="/agendamiento">&larr; Tu evento</a>
+                <a class="btn" href="/complementos">Elegir complementos &rarr;</a>
+            </div>
+
+        $else:
+            <div class="vacio">
+                <p>Tu carrito está vacío.</p>
+                <a class="btn btn--secundario" href="/productos">Ver productos</a>
+            </div>
+
+    </div>
+</section>
