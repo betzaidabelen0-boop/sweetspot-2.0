@@ -6,6 +6,18 @@ from mvc.controllers.publico.index import Index
 from mvc.controllers.publico.productos import Productos
 from mvc.controllers.publico.carrito import Carrito
 
+#ALEEEEEEEE (vistas de los paquetes)
+render = web.template.render('mvc/views/paquetes/')
+
+class Paquetes:
+    def GET(self):
+        return render.paquetes()
+    
+class DetallePaquete:
+    def GET(self):
+        return render.detalle_paquete()
+
+
 # Controladores del administrador: se importan aquí cuando existan
 # from mvc.controllers.admin.login import Login
 
@@ -23,6 +35,10 @@ urls = (
     # Público
     '/', 'Index',
     '/productos', 'Productos',
+    
+    # url de ALEEEEE (paquetes)
+    '/paquetes', 'Paquetes',
+    '/detalle_paquete', 'DetallePaquete',
 
     '/carrito', 'Carrito',
 

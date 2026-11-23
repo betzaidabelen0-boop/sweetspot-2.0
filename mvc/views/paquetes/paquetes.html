@@ -1,0 +1,50 @@
+$def with (paquetes)
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paquetes | SweetsPot</title>
+  <link rel="stylesheet" href="/static/css/paquetes.css">
+</head>
+<body>
+  <div class="topbar"></div>
+  <header class="nav">
+    <a class="logo" href="/">SweetsPot</a>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/productos">Productos</a></li>
+      <li><a class="activo" href="/paquetes">Servicios y paquetes</a></li>
+      <li><a href="/agendamiento">Agendamiento</a></li>
+      <li><a href="/carrito">Carrito</a></li>
+    </ul>
+    <div class="nav-der">
+      <a class="cuenta" href="/cuenta">Mi cuenta</a>
+      <a class="btn btn-solid" href="/personalizar">Personalizar mi mesa</a>
+    </div>
+  </header>
+
+  <main class="paquetes">
+    <h1>Paquetes</h1>
+    <p class="sub">Parte de una de nuestros paquetes</p>
+
+    <section class="grid" id="grid-paquetes">
+      $for p in paquetes:
+        <article class="card">
+          <!-- AQUÍ TU LINK DE IMAGEN (columna imagen_url de la tabla) -->
+          <img src="$p['imagen_url']" alt="$p['nombre']" loading="lazy">
+          <h2>$p['nombre']</h2>
+          <p class="desc">$p['descripcion']</p>
+          <p class="precio">$$$p['precio_fmt']</p>
+          <p class="info">Hasta $p['invitados'] invitados · $p['piezas'] piezas</p>
+          <ul>
+            $for c in p['caracteristicas']:
+              <li>$c</li>
+          </ul>
+          <a class="btn $('btn-solid' if p['destacado'] else 'btn-outline')" href="/paquetes/$p['id']">Conocer $p['nombre'] →</a>
+        </article>
+    </section>
+  </main>
+  <script src="/static/js/paquetes.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+$def with (p)
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paquete $p['nombre'] | SweetsPot</title>
+  <link rel="stylesheet" href="/static/css/paquetes.css">
+</head>
+<body>
+  <div class="topbar"></div>
+  <header class="nav">
+    <a class="logo" href="/">SweetsPot</a>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/productos">Productos</a></li>
+      <li><a class="activo" href="/paquetes">Servicios y paquetes</a></li>
+      <li><a href="/agendamiento">Agendamiento</a></li>
+      <li><a href="/carrito">Carrito</a></li>
+    </ul>
+    <div class="nav-der">
+      <a class="cuenta" href="/cuenta">Mi cuenta</a>
+      <a class="btn btn-solid" href="/personalizar">Personalizar mi mesa</a>
+    </div>
+  </header>
+
+  <main class="detalle">
+    <nav class="migas"><a href="/">Inicio</a> / <a href="/paquetes">Servicios y paquetes</a> / $p['nombre']</nav>
+
+    <section class="detalle-top">
+      <!-- AQUÍ TU LINK DE IMAGEN (columna imagen_url) -->
+      <img class="detalle-img" src="$p['imagen_url']" alt="$p['nombre']">
+
+      <aside class="panel">
+        <h1>Paquete $p['nombre']</h1>
+        <div class="fila">
+          <span class="desde">Desde</span>
+          <span class="precio-det">$$$p['precio_fmt'] MXN</span>
+        </div>
+        <p class="meta">Para $p['invitados'] invitados · $p['horas'] horas de uso</p>
+        <ul>
+          $for c in p['caracteristicas']:
+            <li>$c</li>
+        </ul>
+        <button class="btn btn-solid" id="btn-carrito" data-id="$p['id']">Agregar a mi carrito +</button>
+      </aside>
+    </section>
+
+    <h2>$p['nombre']</h2>
+    <p class="texto">$p['descripcion_larga']</p>
+  </main>
+  <script src="/static/js/paquetes.js"></script>
+</body>
+</html>
