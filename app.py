@@ -4,6 +4,7 @@ import logging
 # Controladores públicos (lo que ve el cliente)
 from mvc.controllers.publico.index import Index
 from mvc.controllers.publico.productos import Productos
+from mvc.controllers.publico.carrito import Carrito
 
 # Controladores del administrador: se importan aquí cuando existan
 # from mvc.controllers.admin.login import Login
@@ -22,7 +23,11 @@ urls = (
     # Público
     '/', 'Index',
     '/productos', 'Productos',
+
+    '/carrito', 'Carrito',
+
     # Admin (pendiente)
+
 )
 
 app = web.application(urls, globals())
