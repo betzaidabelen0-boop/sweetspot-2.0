@@ -1,82 +1,170 @@
-$def with (datos)
-$var titulo: Catálogo de producto
-$var activo: productos
-$var script: productos.js
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Catálogo de producto | SweetsPot</title>
 
-<section class="pagina">
-    <div class="contenedor">
+    <!-- Tipografías de la guía visual -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap">
 
-        <nav class="migas"><a href="/">Inicio</a> / Productos</nav>
+    <!-- Estilos (en este orden) -->
+    <link rel="stylesheet" href="../../../static/css/base.css">
+    <link rel="stylesheet" href="../../../static/css/componentes.css">
+    <link rel="stylesheet" href="../../../static/css/publico.css">
+</head>
+<body>
 
-        <header class="pagina__encabezado">
-            <h1>Catálogo de producto</h1>
-            <p class="subtitulo">Elija sus favoritos</p>
-        </header>
+    <!-- Franja vino superior -->
+    <div class="franja"></div>
 
-        <form class="catalogo__filtros" id="form-filtros" method="get" action="/productos">
-            <div class="campo">
-                <label for="q">¿Qué buscaba?</label>
-                <div class="buscador">
-                    <input type="search" id="q" name="q" value="$datos.texto" placeholder="Buscar dulces/postres">
-                </div>
+    <!-- Barra de navegación -->
+    <header class="navbar">
+        <div class="contenedor navbar__interior">
+            <a class="navbar__logo" href="index.html">SweetsPot</a>
+
+            <nav class="navbar__menu">
+                <a class="navbar__enlace" href="index.html">Inicio</a>
+                <a class="navbar__enlace activo" href="productos.html">Productos</a>
+                <a class="navbar__enlace" href="#">Servicios y paquetes</a>
+                <a class="navbar__enlace" href="#">Agendamiento</a>
+                <a class="navbar__enlace" href="#">Carrito</a>
+            </nav>
+
+            <div class="navbar__acciones">
+                <a class="navbar__enlace" href="#">Mi cuenta</a>
+                <a class="btn" href="#">Personalizar mi mesa</a>
             </div>
-            <div class="campo">
-                <label for="orden">Ordenar por</label>
-                <select id="orden" name="orden">
-                    <option value="populares" $('selected' if datos.orden == 'populares' else '')>Más populares</option>
-                    <option value="nombre" $('selected' if datos.orden == 'nombre' else '')>Nombre (A-Z)</option>
-                    <option value="precio_menor" $('selected' if datos.orden == 'precio_menor' else '')>Precio: menor a mayor</option>
-                    <option value="precio_mayor" $('selected' if datos.orden == 'precio_mayor' else '')>Precio: mayor a menor</option>
-                </select>
-            </div>
-            $if datos.categoria:
-                <input type="hidden" name="categoria" value="$datos.categoria">
-            <button class="solo-lectores" type="submit">Buscar</button>
-        </form>
-
-        <div class="catalogo">
-
-            <aside class="categorias">
-                <h2 class="categorias__titulo">Categorías</h2>
-                <a class="categorias__enlace $('activo' if not datos.categoria else '')" href="$datos.url_todos">Todos los productos · $datos.total_general</a>
-                $for categoria in datos.categorias:
-                    <a class="categorias__enlace $('activo' if datos.categoria == categoria['nombre'] else '')" href="$datos.url_categorias[categoria['nombre']]">$categoria['nombre'] · $categoria['total']</a>
-            </aside>
-
-            <div>
-                $if datos.productos:
-                    <div class="catalogo__lista">
-                        $for producto in datos.productos:
-                            <a class="producto" href="/producto/$producto['id_producto']">
-                                $if producto.get('imagen'):
-                                    <img class="producto__imagen" src="$producto['imagen']" alt="$producto['nombre']">
-                                $else:
-                                    <div class="producto__imagen"></div>
-                                <p class="producto__meta">$producto['meta']</p>
-                                <h3 class="producto__nombre">$producto['nombre']</h3>
-                                <div class="producto__pie">
-                                    <span class="precio precio--vino">$producto['precio_texto'] MXN / pieza</span>
-                                    <span aria-hidden="true">&#8599;</span>
-                                </div>
-                            </a>
-                    </div>
-
-                    $if len(datos.paginas) > 1:
-                        <nav class="paginacion" aria-label="Paginación">
-                            $if datos.url_anterior:
-                                <a class="btn btn--secundario" href="$datos.url_anterior">&larr; Anterior</a>
-                            $for pagina in datos.paginas:
-                                <a class="paginacion__num $('activo' if pagina['activo'] else '')" href="$pagina['url']">$pagina['num']</a>
-                            $if datos.url_siguiente:
-                                <a class="btn btn--secundario" href="$datos.url_siguiente">Siguiente &rarr;</a>
-                        </nav>
-                $else:
-                    <div class="vacio">
-                        <p>No se encontraron productos con esa búsqueda.</p>
-                        <a class="btn btn--secundario" href="/productos">Ver todos los productos</a>
-                    </div>
-            </div>
-
         </div>
-    </div>
-</section>
+    </header>
+
+    <main class="pagina">
+        <div class="contenedor">
+
+            <!-- Migas de pan y título -->
+            <nav class="migas"><a href="index.html">Inicio</a> / Productos</nav>
+
+            <div class="pagina__encabezado">
+                <h1>Catálogo de producto</h1>
+                <p class="subtitulo">Elija sus favoritos</p>
+            </div>
+
+            <!-- Buscador y orden -->
+            <form class="catalogo__filtros">
+                <div class="campo">
+                    <label for="buscar">¿Qué buscaba?</label>
+                    <div class="buscador">
+                        <input type="search" id="buscar" placeholder="Buscar dulces/postres">
+                    </div>
+                </div>
+                <div class="campo">
+                    <label for="orden">Ordenar por</label>
+                    <select id="orden">
+                        <option>Más populares</option>
+                        <option>Precio: menor a mayor</option>
+                        <option>Precio: mayor a menor</option>
+                    </select>
+                </div>
+            </form>
+
+            <div class="catalogo">
+
+                <!-- Categorías -->
+                <aside class="categorias">
+                    <h2 class="categorias__titulo">Categorías</h2>
+                    <a class="categorias__enlace activo" href="#">Todos los productos · 24</a>
+                    <a class="categorias__enlace" href="#">Agridulces · 6</a>
+                    <a class="categorias__enlace" href="#">Chocolate · 5</a>
+                    <a class="categorias__enlace" href="#">Dulces · 4</a>
+                    <a class="categorias__enlace" href="#">Picantes · 5</a>
+                    <a class="categorias__enlace" href="#">Tradicionales · 4</a>
+                </aside>
+
+                <div>
+                    <!-- Productos -->
+                    <div class="catalogo__lista">
+
+                    <a class="producto" href="#">
+                        <img class="producto__imagen" src="../../../static/imagenes/lucas-muecas.jpg" alt="Lucas muecas">
+                        <p class="producto__meta">Agridulces · Mínimo 20 piezas</p>
+                        <h3 class="producto__nombre">Lucas muecas</h3>
+                        <div class="producto__pie">
+                            <span class="precio precio--vino">$15 MXN / pieza</span>
+                            <span>&#8599;</span>
+                        </div>
+                    </a>
+
+                    <a class="producto" href="#">
+                        <img class="producto__imagen" src="../../../static/imagenes/chocodisk.jpg" alt="ChocoDisk">
+                        <p class="producto__meta">Chocolate · Mínimo 20 piezas</p>
+                        <h3 class="producto__nombre">ChocoDisk</h3>
+                        <div class="producto__pie">
+                            <span class="precio precio--vino">$25 MXN / pieza</span>
+                            <span>&#8599;</span>
+                        </div>
+                    </a>
+
+                    <a class="producto" href="#">
+                        <img class="producto__imagen" src="../../../static/imagenes/caramel.jpg" alt="Caramel">
+                        <p class="producto__meta">Dulces · Mínimo 20 piezas</p>
+                        <h3 class="producto__nombre">Caramel</h3>
+                        <div class="producto__pie">
+                            <span class="precio precio--vino">$80 MXN / pieza</span>
+                            <span>&#8599;</span>
+                        </div>
+                    </a>
+
+                    <a class="producto" href="#">
+                        <img class="producto__imagen" src="../../../static/imagenes/winis.jpg" alt="Winis">
+                        <p class="producto__meta">Dulces · Mínimo 20 piezas</p>
+                        <h3 class="producto__nombre">Winis</h3>
+                        <div class="producto__pie">
+                            <span class="precio precio--vino">$35 MXN / pieza</span>
+                            <span>&#8599;</span>
+                        </div>
+                    </a>
+
+                    <a class="producto" href="#">
+                        <img class="producto__imagen" src="../../../static/imagenes/skwinkles.jpg" alt="Skwinkles">
+                        <p class="producto__meta">Picantes · Mínimo 20 piezas</p>
+                        <h3 class="producto__nombre">Skwinkles</h3>
+                        <div class="producto__pie">
+                            <span class="precio precio--vino">$30 MXN / pieza</span>
+                            <span>&#8599;</span>
+                        </div>
+                    </a>
+
+                    <a class="producto" href="#">
+                        <img class="producto__imagen" src="../../../static/imagenes/mazapan-de-la-rosa.jpg" alt="Mazapan de la Rosa">
+                        <p class="producto__meta">Tradicionales · Mínimo 20 piezas</p>
+                        <h3 class="producto__nombre">Mazapan de la Rosa</h3>
+                        <div class="producto__pie">
+                            <span class="precio precio--vino">$30 MXN / pieza</span>
+                            <span>&#8599;</span>
+                        </div>
+                    </a>
+                    </div>
+
+                    <!-- Paginación -->
+                    <div class="paginacion">
+                        <a class="btn btn--secundario" href="#">&larr; Anterior</a>
+                        <a class="paginacion__num activo" href="#">1</a>
+                        <a class="paginacion__num" href="#">2</a>
+                        <a class="paginacion__num" href="#">3</a>
+                        <a class="btn btn--secundario" href="#">Siguiente &rarr;</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="footer">
+        <div class="contenedor">
+            SweetsPot · Mesas de dulces para tus eventos
+        </div>
+    </footer>
+
+</body>
+</html>
