@@ -59,7 +59,7 @@ class ModelProductos:
             print(f"ERROR 107: {str(error)}")
             return -1
 
-    def obtenerProductos(self,id_categoria:str="",buscar:str="",orden:str="populares",pagina:int=1,por_pagina:int=6,solo_disponibles:bool=True):
+    def obtenerProductos(self,id_categoria:str="",buscar:str="",orden:str="recientes",pagina:int=1,por_pagina:int=6,solo_disponibles:bool=True):
         # Regresa los productos de la página y el total de productos que coinciden
         productos: list[dict[str,Any]]
         try:
@@ -82,7 +82,8 @@ class ModelProductos:
             elif orden == "precio_mayor":
                 consulta = consulta.order("precio",desc=True)
             else:
-                consulta = consulta.order("id")
+            # "recientes": los productos más nuevos primero
+                consulta = consulta.order("created_at",desc=True)
 
             inicio = (pagina - 1) * por_pagina
             fin = inicio + por_pagina - 1
