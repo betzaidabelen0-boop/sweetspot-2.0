@@ -4,36 +4,33 @@ $var activo: carrito
 
 <section class="pagina">
     <div class="contenedor">
-
-        <header class="pagina__encabezado">
-            <h1>Carrito</h1>
-        </header>
+        <header class="pagina__encabezado"><h1>Carrito</h1></header>
 
         $if datos.productos:
             <div class="carrito">
-
                 <div>
-                    $for producto in datos.productos:
+                    $for p in datos.productos:
+                        $ id_p = p.get('id_producto') or p.get('id')
                         <article class="carrito__item carrito__item--seleccionado">
-                            $if producto.get('imagen'):
-                                <img src="$producto['imagen']" alt="$producto['nombre']">
+                            $if p.get('imagen'):
+                                <img src="$p['imagen']" alt="$p['nombre']">
                             $else:
                                 <div></div>
 
                             <div>
                                 <span class="insignia">&#10003; Seleccionado</span>
-                                <h3 class="carrito__nombre">$producto['nombre']</h3>
-                                <p class="carrito__detalle">$$$producto['precio_texto'] MXN / pieza · Mínimo $producto['minimo']</p>
+                                <h3 class="carrito__nombre">$p['nombre']</h3>
+                                <p class="carrito__detalle">$$$p['precio_texto'] MXN / pieza · Mínimo $p['minimo']</p>
                             </div>
 
                             <form class="carrito__derecha" method="post" action="/carrito">
-                                <input type="hidden" name="id_producto" value="$producto['id_producto']">
+                                <input type="hidden" name="id_producto" value="$id_p">
                                 <div class="cantidad">
                                     <button type="submit" name="accion" value="restar">&minus;</button>
-                                    <span class="cantidad__valor">$producto['cantidad']</span>
+                                    <span class="cantidad__valor">$p['cantidad']</span>
                                     <button type="submit" name="accion" value="sumar">+</button>
                                 </div>
-                                <span class="carrito__importe">$$$producto['subtotal_texto']</span>
+                                <span class="carrito__importe">$$$p['subtotal_texto']</span>
                                 <button class="carrito__quitar" type="submit" name="accion" value="quitar">Quitar</button>
                             </form>
                         </article>
@@ -61,19 +58,16 @@ $var activo: carrito
                         <strong>$$$datos.total_texto</strong>
                     </div>
                 </aside>
-
             </div>
 
             <div class="acciones-pie">
                 <a class="btn btn--secundario" href="/agendamiento">&larr; Tu evento</a>
                 <a class="btn" href="/complementos">Elegir complementos &rarr;</a>
             </div>
-
         $else:
             <div class="vacio">
                 <p>Tu carrito está vacío.</p>
                 <a class="btn btn--secundario" href="/productos">Ver productos</a>
             </div>
-
     </div>
 </section>

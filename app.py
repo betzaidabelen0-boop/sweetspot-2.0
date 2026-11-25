@@ -4,7 +4,8 @@ import logging
 # Controladores públicos (lo que ve el cliente)
 from mvc.controllers.publico.index import Index
 from mvc.controllers.publico.productos import Productos
-from mvc.controllers.publico.carrito import Carrito
+# Carrito (Kim): Carrito pinta la página, CarritoAgregar recibe el botón "Agregar a mi carrito"
+from mvc.controllers.publico.carrito import Carrito, CarritoAgregar
 
 #ALEEEEEEEE (vistas de los paquetes)
 render = web.template.render('mvc/views/paquetes/')
@@ -40,7 +41,10 @@ urls = (
     '/paquetes', 'Paquetes',
     '/detalle_paquete', 'DetallePaquete',
 
+    # Carrito (Kim)
     '/carrito', 'Carrito',
+    '/carrito/agregar', 'CarritoAgregar', 
+
 
     # Admin (pendiente)
 

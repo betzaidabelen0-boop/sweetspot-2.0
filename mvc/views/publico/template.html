@@ -1,0 +1,24 @@
+$def with (content)
+$ activo = content.get('activo', '')
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>$content.get('titulo', 'SweetSpot') | SweetSpot</title>
+    <!--CSS-->
+</head>
+<body>
+    <header class="menu">
+        <nav>
+            <a href="/" class="$('activo' if activo == 'inicio' else '')">Inicio</a>
+            <a href="/productos" class="$('activo' if activo == 'productos' else '')">Productos</a>
+            <a href="/paquetes" class="$('activo' if activo == 'paquetes' else '')">Servicios y paquetes</a>
+            <a href="/agendamiento" class="$('activo' if activo == 'agendamiento' else '')">Agendamiento</a>
+            <a href="/carrito" class="$('activo' if activo == 'carrito' else '')">Carrito</a>
+        </nav>
+    </header>
+
+    $:content
+</body>
+</html>
