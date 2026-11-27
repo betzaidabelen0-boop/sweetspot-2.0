@@ -5,20 +5,41 @@ $ activo = content.get('activo', '')
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>$content.get('titulo', 'SweetSpot') | SweetSpot</title>
-    <!--CSS-->
+    <title>$content.get('titulo', 'SweetsPot') | SweetsPot</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/componentes.css">
+    <link rel="stylesheet" href="/static/css/publico.css">
 </head>
 <body>
-    <header class="menu">
-        <nav>
-            <a href="/" class="$('activo' if activo == 'inicio' else '')">Inicio</a>
-            <a href="/productos" class="$('activo' if activo == 'productos' else '')">Productos</a>
-            <a href="/paquetes" class="$('activo' if activo == 'paquetes' else '')">Servicios y paquetes</a>
-            <a href="/agendamiento" class="$('activo' if activo == 'agendamiento' else '')">Agendamiento</a>
-            <a href="/carrito" class="$('activo' if activo == 'carrito' else '')">Carrito</a>
-        </nav>
+    <div class="franja"></div>
+
+    <header class="navbar">
+        <div class="contenedor navbar__interior">
+            <a class="navbar__logo" href="/">SweetsPot</a>
+
+            <nav class="navbar__menu">
+                <a class="navbar__enlace $('activo' if activo == 'inicio' else '')" href="/">Inicio</a>
+                <a class="navbar__enlace $('activo' if activo == 'productos' else '')" href="/productos">Productos</a>
+                <a class="navbar__enlace $('activo' if activo == 'paquetes' else '')" href="/paquetes">Servicios y paquetes</a>
+                <a class="navbar__enlace $('activo' if activo == 'agendamiento' else '')" href="/agendamiento">Agendamiento</a>
+                <a class="navbar__enlace $('activo' if activo == 'carrito' else '')" href="/carrito">Carrito</a>
+            </nav>
+
+            <div class="navbar__acciones">
+                <a class="navbar__enlace" href="#">Mi cuenta</a>
+                <a class="btn" href="#">Personalizar mi mesa</a>
+            </div>
+        </div>
     </header>
 
     $:content
+
+    <footer class="footer">
+        <div class="contenedor">
+            SweetsPot · Mesas de dulces para tus eventos
+        </div>
+    </footer>
 </body>
 </html>

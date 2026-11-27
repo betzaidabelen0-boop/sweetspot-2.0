@@ -105,4 +105,4 @@ class CarritoAgregar:
         carrito = leer()
         carrito[entrada.id] = max(cantidad, minimo)
         guardar(carrito)
-        return "ok"
+        raise web.seeother('/carrito')

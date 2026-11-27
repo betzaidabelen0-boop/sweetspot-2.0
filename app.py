@@ -4,6 +4,7 @@ import logging
 # Controladores públicos (lo que ve el cliente)
 from mvc.controllers.publico.index import Index
 from mvc.controllers.publico.productos import Productos
+from mvc.controllers.publico.producto import Producto
 # Carrito (Kim): Carrito pinta la página, CarritoAgregar recibe el botón "Agregar a mi carrito"
 from mvc.controllers.publico.carrito import Carrito, CarritoAgregar
 
@@ -36,6 +37,7 @@ urls = (
     # Público
     '/', 'Index',
     '/productos', 'Productos',
+    '/producto', 'Producto',
     
     # url de ALEEEEE (paquetes)
     '/paquetes', 'Paquetes',

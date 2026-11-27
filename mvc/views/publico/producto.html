@@ -1,0 +1,77 @@
+$def with (p)
+$var titulo: Producto
+$var activo: productos
+
+<section class="pagina">
+    <div class="contenedor">
+
+        <nav class="migas"><a href="/">Inicio</a> / <a href="/productos">Productos</a> / $p['nombre']</nav>
+
+        <div class="detalle">
+            $if p['imagen']:
+                <img class="detalle__imagen" src="$p['imagen']" alt="$p['nombre']">
+            $else:
+                <div></div>
+
+            <div>
+                <span class="etiqueta">$p['categoria']</span>
+                <h1>$p['nombre']</h1>
+
+                $if p['descripcion']:
+                    <p class="detalle__descripcion">$p['descripcion']</p>
+
+                <p class="precio">$$$p['precio_texto'] MXN</p>
+                <p class="detalle__nota">Por pieza · Pedido mínimo de $p['minimo'] piezas</p>
+
+                <form method="post" action="/carrito/agregar" id="form-agregar" data-precio="$p['precio_num']" data-minimo="$p['minimo']">
+                    <input type="hidden" name="id" value="$p['id']">
+                    <input type="hidden" name="cantidad" id="cantidad" value="$p['minimo']">
+
+                    <div class="campo">
+                        <span class="campo__etiqueta">Cantidad de piezas</span>
+                        <div class="cantidad cantidad--caja">
+                            <button type="button" id="restar">&minus;</button>
+                            <span class="cantidad__valor" id="valor">$p['minimo']</span>
+                            <button type="button" id="sumar">+</button>
+                        </div>
+                    </div>
+
+                    <div class="detalle__subtotal">
+                        <span>Subtotal · <span id="piezas">$p['minimo']</span> piezas</span>
+                        <strong>$$<span id="subtotal">$p['subtotal_texto']</span> MXN</strong>
+                    </div>
+
+                    <button class="btn btn--bloque" type="submit">Agregar a mi carrito +</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+(function () {
+    var form = document.getElementById('form-agregar');
+    var precio = parseFloat(form.dataset.precio);
+    var minimo = parseInt(form.dataset.minimo, 10);
+    var cantidad = minimo;
+
+    function pintar() {
+        document.getElementById('cantidad').value = cantidad;
+        document.getElementById('valor').textContent = cantidad;
+        document.getElementById('piezas').textContent = cantidad;
+        document.getElementById('subtotal').textContent =
+            (precio * cantidad).toLocaleString('es-MX', { maximumFractionDigits: 2 });
+    }
+
+    document.getElementById('sumar').addEventListener('click', function () {
+        cantidad += 1;
+        pintar();
+    });
+    document.getElementById('restar').addEventListener('click', function () {
+        if (cantidad > minimo) {
+            cantidad -= 1;
+            pintar();
+        }
+    });
+})();
+</script>
